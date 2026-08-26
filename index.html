@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Doyeon Kim — personal site.">
+<meta name="description" content="Doyeon Kim — Ph.D. student at DGIST. LiDAR SLAM, place recognition, and localization.">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)">
 <title>Doyeon Kim</title>
@@ -86,18 +86,14 @@
     align-items: center; justify-content: center; text-align: center;
     padding: 64px 22px 96px;
   }
+  /* avatar.png = GitHub 프로필 사진 사본. 바꾸려면 이 파일만 교체하면 됩니다. */
   .avatar {
     width: 116px; height: 116px; border-radius: 50%;
     margin-bottom: 34px;
-    display: grid; place-items: center;
-    font-size: 38px; font-weight: 500; letter-spacing: 0;
-    color: #fff;
-    background: linear-gradient(150deg, #6ea8fe 0%, #0071e3 55%, #7d5bed 100%);
-    box-shadow: 0 10px 40px rgba(0,113,227,.28);
-    user-select: none;
+    object-fit: cover;
+    background: var(--bg-alt);
+    box-shadow: 0 10px 40px rgba(0,0,0,.18);
   }
-  /* 사진으로 바꾸려면 위 div를 <img class="avatar" src="avatar.jpg" alt=""> 로 교체하고
-     background/box-shadow 대신 object-fit:cover 를 쓰면 됩니다. */
   h1 {
     font-size: clamp(44px, 8.4vw, 84px);
     font-weight: 600; letter-spacing: -0.025em; line-height: 1.04;
@@ -181,16 +177,16 @@
     <ul>
       <li><a href="#about">About</a></li>
       <li><a href="#publications">Publications</a></li>
-      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </div>
 </nav>
 
 <header class="hero">
-  <div class="avatar">DK</div>
+  <img class="avatar" src="avatar.png" width="116" height="116" alt="Doyeon Kim">
   <h1>Doyeon Kim</h1>
-  <p class="tagline">One&#8209;line description goes here.</p>
+  <p class="tagline">Ph.D. student at DGIST, working on LiDAR SLAM, place recognition, and localization.</p>
   <div class="cta">
     <a class="btn primary" href="#about">Learn more</a>
     <a class="btn ghost" href="mailto:dodeakim@gmail.com">Get in touch</a>
@@ -200,7 +196,9 @@
 <section id="about" class="alt">
   <div class="inner reveal">
     <h2>About</h2>
-    <p class="lead">TBD — a short paragraph about what you work on and what you care about.</p>
+    <p class="lead">I am a Ph.D. student at the Daegu Gyeongbuk Institute of Science and Technology (DGIST).
+      My research centers on LiDAR&#8209;based SLAM, place recognition, and localization &mdash; including loop closure
+      detection, semantic descriptors for global place recognition, and robust state estimation on mobile robots.</p>
   </div>
 </section>
 
@@ -209,39 +207,50 @@
     <h2>Publications</h2>
     <div class="grid">
       <article class="card">
-        <h3>Paper title</h3>
-        <p class="meta">
-          Authors · Venue, Year
-          <span class="sep">|</span> <a href="#">Paper</a>
-          <span class="sep">|</span> <a href="#">Code</a>
-        </p>
+        <h3>FLASH: Fibonacci Lattice Spherical Harmonics for Semantic Place Recognition Using LiDAR</h3>
+        <p class="meta"><strong>D. Kim</strong>, H. Lee · IEEE Robotics and Automation Letters, 2026</p>
       </article>
       <article class="card">
-        <h3>Paper title</h3>
-        <p class="meta">
-          Authors · Venue, Year
-          <span class="sep">|</span> <a href="#">Paper</a>
-        </p>
+        <h3>A Multi-Sensor Dataset for SLAM in Repetitive Scene Environments</h3>
+        <p class="meta"><strong>D. Kim</strong>, E. Han, S. Kang, S. Lee, H. Lee · IEEE Sensors Letters, 2026</p>
+      </article>
+      <article class="card">
+        <h3>LiDAR Loop Closure Detection Using Density Images and Zernike Moments</h3>
+        <p class="meta"><strong>D. Kim</strong>, H. Lee · Intelligent Service Robotics, 19(5), 78, 2026</p>
+      </article>
+      <article class="card">
+        <h3>Pitch Variation Filter for LiDAR-Only SLAM and Localization in Self-Balancing Mobile Robot</h3>
+        <p class="meta"><strong>D. Kim</strong>, H. Lee, K. H. Choi · IEEE Robotics and Automation Letters, 2025</p>
       </article>
     </div>
+    <p style="margin-top:30px">
+      <a href="https://scholar.google.com/citations?user=W9zGnr0AAAAJ">View all on Google Scholar &rsaquo;</a>
+    </p>
   </div>
 </section>
 
-<section id="experience" class="alt">
+<section id="education" class="alt">
   <div class="inner reveal">
-    <h2>Experience</h2>
+    <h2>Education</h2>
     <div class="row">
-      <div class="when">2020 — Present</div>
+      <div class="when">Feb. 2026 — Present</div>
       <div>
-        <h3>Position</h3>
-        <div class="where">Organization</div>
+        <h3>Ph.D. Student</h3>
+        <div class="where">Daegu Gyeongbuk Institute of Science and Technology (DGIST)</div>
       </div>
     </div>
     <div class="row">
-      <div class="when">2016 — 2020</div>
+      <div class="when">Mar. 2024 — Feb. 2026</div>
       <div>
-        <h3>Position</h3>
-        <div class="where">Organization</div>
+        <h3>M.S.</h3>
+        <div class="where">Kumoh National Institute of Technology</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="when">Mar. 2018 — Feb. 2024</div>
+      <div>
+        <h3>B.S.</h3>
+        <div class="where">Kumoh National Institute of Technology</div>
       </div>
     </div>
   </div>
