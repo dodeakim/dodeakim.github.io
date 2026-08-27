@@ -132,14 +132,24 @@
     border: 1px solid var(--line);
     overflow: hidden;
     transition: transform .25s ease;
+    display: grid; grid-template-columns: 240px 1fr; align-items: stretch;
   }
   @media (hover: hover) { .card:hover { transform: translateY(-2px); } }
   .card .media {
-    display: block; width: 100%; height: auto;
+    display: block; width: 100%; height: 100%; min-height: 132px;
+    object-fit: contain;
     background: var(--bg-alt);
-    border-bottom: 1px solid var(--line);
+    border-right: 1px solid var(--line);
   }
-  .card-body { padding: 24px 30px 28px; }
+  .card-body { padding: 22px 28px; align-self: center; }
+  @media (max-width: 640px) {
+    .card { grid-template-columns: 1fr; }
+    .card .media {
+      height: auto; aspect-ratio: 16 / 9; min-height: 0;
+      border-right: none; border-bottom: 1px solid var(--line);
+    }
+    .card-body { padding: 20px 22px 24px; }
+  }
   .card h3 {
     font-size: 21px; font-weight: 600; letter-spacing: -0.015em;
     margin: 0 0 6px; line-height: 1.3;
@@ -214,7 +224,7 @@
     <div class="grid">
       <article class="card">
         <video class="media" src="assets/flash.mp4" poster="assets/flash-poster.webp"
-               muted loop playsinline preload="none" width="1280" height="606"
+               muted loop playsinline preload="none" width="640" height="302"
                aria-label="FLASH qualitative results"></video>
         <div class="card-body">
           <h3>FLASH: Fibonacci Lattice Spherical Harmonics for Semantic Place Recognition Using LiDAR</h3>
@@ -223,7 +233,7 @@
       </article>
       <article class="card">
         <img class="media" src="assets/scout-ga.webp" loading="lazy" decoding="async"
-             width="1800" height="1136" alt="Graphical abstract of the multi-sensor SLAM dataset">
+             width="760" height="480" alt="Graphical abstract of the multi-sensor SLAM dataset">
         <div class="card-body">
           <h3>A Multi-Sensor Dataset for SLAM in Repetitive Scene Environments</h3>
           <p class="meta"><strong>D. Kim</strong>, E. Han, S. Kang, S. Lee, H. Lee · IEEE Sensors Letters, 2026</p>
@@ -231,7 +241,7 @@
       </article>
       <article class="card">
         <img class="media" src="assets/dzloop-pipeline.webp" loading="lazy" decoding="async"
-             width="1800" height="872" alt="DZLoop pipeline overview">
+             width="760" height="368" alt="DZLoop pipeline overview">
         <div class="card-body">
           <h3>LiDAR Loop Closure Detection Using Density Images and Zernike Moments</h3>
           <p class="meta"><strong>D. Kim</strong>, H. Lee · Intelligent Service Robotics, 19(5), 78, 2026</p>
@@ -239,7 +249,7 @@
       </article>
       <article class="card">
         <video class="media" src="assets/pvf.mp4" poster="assets/pvf-poster.webp"
-               muted loop playsinline preload="none" width="1280" height="720"
+               muted loop playsinline preload="none" width="640" height="360"
                aria-label="Pitch variation filter experiment"></video>
         <div class="card-body">
           <h3>Pitch Variation Filter for LiDAR-Only SLAM and Localization in Self-Balancing Mobile Robot</h3>
