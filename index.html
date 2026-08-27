@@ -49,28 +49,58 @@
   a { color: var(--link); text-decoration: none; }
   a:hover { text-decoration: underline; }
 
-  /* ---------- nav ---------- */
-  nav {
-    position: sticky; top: 0; z-index: 50;
-    height: 48px;
-    background: var(--nav-bg);
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
-    border-bottom: 1px solid var(--line);
+  /* ---------- sidebar ---------- */
+  .sidebar {
+    position: fixed; inset: 0 auto 0 0; width: 232px; z-index: 50;
+    background: var(--bg-alt);
+    border-right: 1px solid var(--line);
+    padding: 34px 26px 26px;
+    display: flex; flex-direction: column; gap: 30px;
   }
-  nav .inner {
-    max-width: 980px; margin: 0 auto; height: 100%;
-    padding: 0 22px;
-    display: flex; align-items: center; justify-content: space-between;
+  .sidebar .brand {
+    font-size: 17px; font-weight: 600; letter-spacing: -0.015em; color: var(--fg);
   }
-  nav .brand { font-size: 15px; font-weight: 600; color: var(--fg); letter-spacing: -0.01em; }
-  nav ul { display: flex; gap: 26px; list-style: none; margin: 0; padding: 0; }
-  nav a { font-size: 13px; color: var(--fg); opacity: .82; }
-  nav a:hover { opacity: 1; text-decoration: none; }
-  @media (max-width: 560px) { nav ul { gap: 18px; } nav .brand { display: none; } }
+  .sidebar nav ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+  .sidebar nav a {
+    display: block; padding: 7px 10px; margin-left: -10px; border-radius: 8px;
+    font-size: 15px; color: var(--fg); opacity: .72;
+    transition: opacity .15s ease, background .15s ease, color .15s ease;
+  }
+  .sidebar nav a:hover {
+    opacity: 1; text-decoration: none;
+    background: color-mix(in srgb, var(--fg) 7%, transparent);
+  }
+  .sidebar nav a.active {
+    opacity: 1; font-weight: 600; color: var(--link);
+    background: color-mix(in srgb, var(--link) 11%, transparent);
+  }
+  .sidebar .social {
+    margin-top: auto; padding-top: 20px; border-top: 1px solid var(--line);
+    display: flex; flex-direction: column; gap: 9px;
+  }
+  .sidebar .social a { font-size: 13px; color: var(--muted); }
+  .sidebar .social a:hover { color: var(--link); }
+  .page { margin-left: 232px; }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      position: sticky; inset: auto; width: auto; height: 52px;
+      flex-direction: row; align-items: center; gap: 20px;
+      padding: 0 18px;
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-right: none; border-bottom: 1px solid var(--line);
+    }
+    .sidebar nav ul { flex-direction: row; gap: 6px; }
+    .sidebar nav a { font-size: 13px; padding: 6px 9px; margin-left: 0; }
+    .sidebar .social { display: none; }
+    .page { margin-left: 0; }
+  }
+  @media (max-width: 560px) { .sidebar .brand { display: none; } }
 
   /* ---------- layout ---------- */
-  section { padding: 96px 22px; }
+  section { padding: 96px 22px; scroll-margin-top: 60px; }
   .inner { max-width: 980px; margin: 0 auto; }
   .alt { background: var(--bg-alt); }
   h2 {
@@ -81,7 +111,7 @@
 
   /* ---------- hero ---------- */
   .hero {
-    min-height: calc(100svh - 48px);
+    min-height: 100svh;
     display: flex; flex-direction: column;
     align-items: center; justify-content: center; text-align: center;
     padding: 64px 22px 96px;
@@ -188,16 +218,23 @@
 </head>
 <body>
 
-<nav>
-  <div class="inner">
-    <span class="brand">Doyeon Kim</span>
+<aside class="sidebar">
+  <span class="brand">Doyeon Kim</span>
+  <nav>
     <ul>
       <li><a href="#publications">Publications</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+  </nav>
+  <div class="social">
+    <a href="https://github.com/dodeakim">GitHub</a>
+    <a href="https://scholar.google.com/citations?user=W9zGnr0AAAAJ">Scholar</a>
+    <a href="https://www.youtube.com/@dodeakim">YouTube</a>
   </div>
-</nav>
+</aside>
+
+<div class="page">
 
 <header class="hero">
   <img class="avatar" src="avatar.png" width="116" height="116" alt="Doyeon Kim">
@@ -300,13 +337,9 @@
 <footer>
   <div class="inner">
     <span>Copyright &copy; <span id="y"></span> Doyeon Kim. All rights reserved.</span>
-    <span class="links">
-      <a href="https://github.com/dodeakim">GitHub</a>
-      <a href="https://scholar.google.com/citations?user=W9zGnr0AAAAJ">Scholar</a>
-      <a href="https://www.youtube.com/@dodeakim">YouTube</a>
-    </span>
   </div>
 </footer>
+</div>
 
 <script>
   document.getElementById('y').textContent = new Date().getFullYear();
@@ -328,6 +361,20 @@
     }, { threshold: 0.35 });
     document.querySelectorAll('video.media').forEach(v => vo.observe(v));
   }
+
+  // 스크롤스파이 — 화면 중앙에 걸린 섹션의 사이드바 링크를 강조
+  const navLinks = Array.from(document.querySelectorAll('.sidebar nav a'));
+  const linkFor = new Map(navLinks.map(a => [a.getAttribute('href').slice(1), a]));
+  const spy = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      const a = linkFor.get(e.target.id);
+      if (a && e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        a.classList.add('active');
+      }
+    }
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('section[id]').forEach(sec => spy.observe(sec));
 </script>
 
 </body>
